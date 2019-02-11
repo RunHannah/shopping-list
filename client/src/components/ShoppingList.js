@@ -7,27 +7,6 @@ import { getItems, deleteItem } from '../actions/itemActions';
 import PropTypes from 'prop-types';
 
 class ShoppingList extends Component {
-  // state = {
-  //   items: [
-  //     {
-  //       id: uuid(),
-  //       name: 'Eggs'
-  //     },
-  //     {
-  //       id: uuid(),
-  //       name: 'Bread'
-  //     },
-  //     {
-  //       id: uuid(),
-  //       name: 'Lettuce'
-  //     },
-  //     {
-  //       id: uuid(),
-  //       name: 'Carrots'
-  //     }
-  //   ]
-  // };
-
   componentDidMount() {
     this.props.getItems();
   }
@@ -39,27 +18,25 @@ class ShoppingList extends Component {
   render() {
     const { items } = this.props.item;
     return (
-      <Container>
-        <ListGroup>
-          <TransitionGroup className="shopping-list">
-            {items.map(({ _id, name }) => (
-              <CSSTransition key={_id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  <Button
-                    className="remove-btn"
-                    color="danger"
-                    size="sm"
-                    onClick={this.onDeleteClick.bind(this, _id)}
-                  >
-                    &times;
-                  </Button>
-                  {name}
-                </ListGroupItem>
-              </CSSTransition>
-            ))}
-          </TransitionGroup>
-        </ListGroup>
-      </Container>
+      <ListGroup style={{ maxWidth: 400 }}>
+        <TransitionGroup className="shopping-list">
+          {items.map(({ _id, name }) => (
+            <CSSTransition key={_id} timeout={500} classNames="fade">
+              <ListGroupItem>
+                <Button
+                  className="remove-btn"
+                  color="warning"
+                  size="sm"
+                  onClick={this.onDeleteClick.bind(this, _id)}
+                >
+                  <i class="fas fa-trash-alt" />
+                </Button>
+                {name}
+              </ListGroupItem>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
+      </ListGroup>
     );
   }
 }
