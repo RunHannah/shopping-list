@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
+import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ class ShoppingList extends Component {
     return (
       <ListGroup style={{ maxWidth: 400 }}>
         <TransitionGroup className="shopping-list">
-          {items.map(({ _id, name }) => (
+          {items.map(({ _id, name, note }) => (
             <CSSTransition key={_id} timeout={500} classNames="fade">
               <ListGroupItem>
                 <Button
@@ -29,9 +29,9 @@ class ShoppingList extends Component {
                   size="sm"
                   onClick={this.onDeleteClick.bind(this, _id)}
                 >
-                  <i class="fas fa-trash-alt" />
+                  <i className="fas fa-trash-alt" />
                 </Button>
-                {name}
+                {name}, note: {note}
               </ListGroupItem>
             </CSSTransition>
           ))}
