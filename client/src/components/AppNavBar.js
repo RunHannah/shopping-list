@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RegisterModal from './auth/RegisterModal';
+import LoginModal from './auth/LoginModal';
 import Logout from './auth/Logout';
 
 class AppNavbar extends Component {
@@ -49,6 +50,9 @@ class AppNavbar extends Component {
       <Fragment>
         <NavItem>
           <RegisterModal />
+        </NavItem>
+        <NavItem>
+          <LoginModal />
         </NavItem>
       </Fragment>
     );
