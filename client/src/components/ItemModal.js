@@ -11,12 +11,16 @@ import {
 } from 'reactstrap';
 import { connect } from 'react-redux';
 import { addItem } from '../actions/itemActions';
+import PropTypes from 'prop-types';
 
 class ItemModal extends Component {
   state = {
     modal: false,
-    name: '',
-    note: ''
+    name: ''
+  };
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool
   };
 
   toggle = () => {
@@ -33,9 +37,9 @@ class ItemModal extends Component {
     e.preventDefault();
 
     const newItem = {
-      name: this.state.name,
-      note: this.state.note
+      name: this.state.name
     };
+
     // Add item via addItem action
     this.props.addItem(newItem);
 
@@ -46,13 +50,18 @@ class ItemModal extends Component {
   render() {
     return (
       <div>
-        <Button
-          color="dark"
-          style={{ marginBottom: '2rem' }}
-          onClick={this.toggle}
-        >
-          Add Item
-        </Button>
+        {this.props.isAuthenticated ? (
+          <Button
+            color="dark"
+            style={{ marginBottom: '2rem' }}
+            onClick={this.toggle}
+          >
+            Add Item
+          </Button>
+        ) : (
+          <h4 className="mb-3 ml-4">Please log in to manage items</h4>
+        )}
+
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add To Shopping List</ModalHeader>
           <ModalBody>
@@ -64,14 +73,6 @@ class ItemModal extends Component {
                   name="name"
                   id="item"
                   placeholder="Add shopping item"
-                  onChange={this.onChange}
-                />
-                <br />
-                <Input
-                  type="text"
-                  name="note"
-                  id="item"
-                  placeholder="note..."
                   onChange={this.onChange}
                 />
                 <Button color="dark" style={{ marginTop: '2rem' }} block>
@@ -87,7 +88,8 @@ class ItemModal extends Component {
 }
 
 const mapStateToProps = state => ({
-  item: state.item
+  item: state.item,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(
